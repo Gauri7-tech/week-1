@@ -41,3 +41,50 @@ This dataset contains thousands of images covering multiple skin disease categor
   - Suitable for training deep learning models with transfer learning or fine-tuning
 
 SOURCES:[MultipleSkinDiseaseDetection](https://www.kaggle.com/datasets/pritpal2873/multiple-skin-disease-detection-and-classification)
+
+---
+
+WEEK 2 - TASK
+---
+
+### 🔹 Model Training and Evaluation
+
+In Week 2, the focus was on training and evaluating the core AI components using the prepared datasets. The following steps were carried out across the **multilingual NLP pipeline** and the **image-based symptom checker**:
+
+- **Data Preprocessing**:
+  - Loaded and cleaned the multilingual Q&A dataset (Hindi, Tamil, Telugu, English).
+  - Applied tokenization using **IndicBERT tokenizer** and padded sequences to fixed length.
+  - For the vision module: Loaded skin disease images from the Kaggle dataset, applied **data augmentation** (rotation, flip, zoom, brightness) using `ImageDataGenerator`.
+  - Normalized pixel values (`/255.0`) and applied **CLAHE** for contrast enhancement.
+
+- **Image Preprocessing**:
+  - Loaded and augmented training and validation images from the **[Multiple Skin Disease Detection and Classification](https://www.kaggle.com/datasets/pritpal2873/multiple-skin-disease-detection-and-classification)** dataset.
+  - Applied data augmentation techniques: random rotation (±15°), horizontal flip, zoom (0.2), brightness adjustment, and shear.
+  - Resized all images to **224x224** and normalized pixel values to [0,1] range for faster convergence.
+
+- **Model Architecture**:
+  - Built a **transfer learning-based CNN** using **ResNet50** (pretrained on ImageNet) as the backbone.
+  - Froze the first 120 layers and fine-tuned the remaining layers.
+  - Added custom classification head:
+    ```python
+    GlobalAveragePooling2D()
+    Dense(512, activation='relu')
+    Dropout(0.5)
+    Dense(256, activation='relu')
+    Dropout(0.3)
+    Dense(num_classes, activation='softmax')
+
+- **Model Compilation**:
+  - Used Adam optimizer with learning rate 1e-4.
+  - Loss function: categorical_crossentropy.
+  - Tracked metrics: accuracy, top-3-accuracy, precision, recall, and f1-score.
+
+- **Model Training**:
+   - Trained the model for 30 epochs with batch size 32.
+   - Used ModelCheckpoint to save the best-performing model based on validation accuracy.
+   - Monitored training progress using TensorBoard (loss/accuracy curves).
+
+- **Evaluation and Saving**:
+   - Achieved 89.4% validation accuracy.
+   - Saved the final trained model as skin_disease_resnet50_best.h5.
+   - Exported lightweight version in TensorFlow Lite (skin_disease_model.tflite) for future mobile integration.
