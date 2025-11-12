@@ -1,0 +1,5 @@
+from model.skin_disease_model import SkinDiseaseModel  # Your standalone class
+
+model = SkinDiseaseModel("model/skin_disease_model.h5")
+label, conf, probs = model.predict("sample_images/test.jpg")
+print(f"Predicted: {label} ({conf:.1%} confidence)")
