@@ -49,13 +49,7 @@ WEEK 2 - TASK
 
 ### 🔹 Model Training and Evaluation
 
-In Week 2, the focus was on training and evaluating the core AI components using the prepared datasets. The following steps were carried out across the **multilingual NLP pipeline** and the **image-based symptom checker**:
-
-- **Data Preprocessing**:
-  - Loaded and cleaned the multilingual Q&A dataset (Hindi, Tamil, Telugu, English).
-  - Applied tokenization using **IndicBERT tokenizer** and padded sequences to fixed length.
-  - For the vision module: Loaded skin disease images from the Kaggle dataset, applied **data augmentation** (rotation, flip, zoom, brightness) using `ImageDataGenerator`.
-  - Normalized pixel values (`/255.0`) and applied **CLAHE** for contrast enhancement.
+In Week 2, the focus was on training and evaluating the core AI components using the prepared datasets. The following steps were carried out across the **image-based symptom checker**:
 
 - **Image Preprocessing**:
   - Loaded and augmented training and validation images from the **[Multiple Skin Disease Detection and Classification](https://www.kaggle.com/datasets/pritpal2873/multiple-skin-disease-detection-and-classification)** dataset.
